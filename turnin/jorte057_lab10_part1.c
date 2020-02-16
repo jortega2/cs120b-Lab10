@@ -141,7 +141,7 @@ ISR(TIMER1_COMPA_vect){
 
 int main(void) {
     /* Insert DDR and PORT initializations */
-	const unsigned long timerPeriod = 100;
+	const unsigned long timerPeriod = 1000;
 	DDRB = 0xFF; PORTB = 0x00;
 	TimerSet(timerPeriod);
 	TimerOn();
@@ -155,8 +155,6 @@ int main(void) {
 	TickFct_CombineLED();
 	while (!TimerFlag){}	
 	TimerFlag = 0;
-	TL_elapsedTime  += timerPeriod;
-	BL_elapsedTime += timerPeriod;
     }
     return 1;
 }

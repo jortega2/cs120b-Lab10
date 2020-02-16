@@ -134,20 +134,21 @@ void TickFct_Speaker(){
 			speaker_state = speakerWait;
 			break;
 		case speakerWait:
-			if ((~PINA && 0x03) == 0x01){
+			if ((~PINA & 0x03) == 0x01){
 				speaker_state = speakerOn;
 			} else {
 				speaker_state = speakerWait;
 			}
+			break;
 		case speakerOn:
-			if ((~PINA && 0x03) == 0x02){
+			if ((~PINA & 0x03) == 0x02){
 				speaker_state = speakerWait;
 			}else {
 				speaker_state = speakerOff;
 			}
 			break;
 		case speakerOff:
-			if ((~PINA && 0x03) == 0x02) {
+			if ((~PINA & 0x03) == 0x02) {
 				speaker_state = speakerWait;
 			} else {
 				speaker_state = speakerOn;
@@ -199,6 +200,7 @@ int main(void) {
 	TimerOn();
 	three_states = three_init;
 	blink_state = blink_init;
+	speaker_state = speaker_init;
 	
     /* Insert your solution below */
     while (1) {
@@ -210,6 +212,7 @@ int main(void) {
 		TickFct_BlinkingLED();
 		BL_elapsedTime = 0;
 	}
+	TickFct_Speaker();
 	TickFct_CombineLED();
 	while (!TimerFlag){}	
 	TimerFlag = 0;
